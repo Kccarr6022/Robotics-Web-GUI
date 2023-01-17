@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import FermiLabLogo from './images/FermiLabLogo.png'
 import './index.scss'
+
+import axios from 'axios'
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleUsernameChange = e => {
     setUsername(e.target.value)
@@ -14,7 +18,21 @@ const Login = () => {
     setPassword(e.target.value)
   }
 
-  const handleLogin = () => {}
+  const handleLogin = () => {
+    try {
+      axios
+        .post(process.env.REACT_APP_API_ADDRESS + 'api/login', {
+          username: username,
+          password: password,
+        })
+        .then(response => response.status === 200 && navigate('/robotics'))
+        .catch(e => {
+          console.log(e)
+        })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <div className='login-page'>

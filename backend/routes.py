@@ -14,7 +14,8 @@
 #
 ####################################
 from flask import current_app,jsonify, make_response, flash, request, redirect, url_for, session, Response, copy_current_request_context
-from app import create_app,db
+from app import create_app
+from classes.RobotAdapter import Robot
 
 ####################################
 #
@@ -37,6 +38,14 @@ app = create_app()
 #
 ####################################
 
-@app.route('/', methods=['GET'])
+@app.route('/api/login', methods=['POST'])
 def base():
-    return Response(message="working route", status= 200)
+    data = request.get_json()
+    if data['username'] == 'admin' and data['password'] == 'admin':
+        return Response(status= 200)
+    else:
+        return Response(status= 404)
+
+if __name__ == "__main__":
+    app.run()
+
