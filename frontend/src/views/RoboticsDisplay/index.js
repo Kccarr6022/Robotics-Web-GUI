@@ -15,6 +15,7 @@ const RoboticsDisplay = () => {
           return (
             <li>
               <h1>{Robot.name}</h1>
+              <img src={Robot.img} alt={Robot.name} />
             </li>
           )
         })}

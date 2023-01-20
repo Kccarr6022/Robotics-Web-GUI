@@ -6,6 +6,7 @@ import './index.scss'
 import axios from 'axios'
 
 const Login = () => {
+  const [prompt, setPrompt] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -25,7 +26,10 @@ const Login = () => {
           username: username,
           password: password,
         })
-        .then(response => response.status === 200 && navigate('/robotics'))
+        .then(response => {
+          response.status === 200 && response.data['msg'] == 'Successful login' ? navigate('/robotics') : setPrompt(response.data['msg'])
+        })
+        .then(console.log(prompt))
         .catch(e => {
           console.log(e)
         })
@@ -49,6 +53,21 @@ const Login = () => {
       <button className='login-button' onClick={handleLogin}>
         Login
       </button>
+      <div className='box-1'>
+        <div className='box-2'></div>
+      </div>
+      {prompt && (
+        <div className='login-prompt'>
+          <h1>Wrong username or password</h1>
+          <button
+            onClick={() => {
+              setPrompt(null)
+            }}
+          >
+            Continue
+          </button>
+        </div>
+      )}
     </div>
   )
 }

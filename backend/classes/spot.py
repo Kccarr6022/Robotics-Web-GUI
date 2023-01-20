@@ -1,0 +1,6 @@
+import spo
+
+class Spot:
+
+
+

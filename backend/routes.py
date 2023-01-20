@@ -42,9 +42,9 @@ app = create_app()
 def base():
     data = request.get_json()
     if data['username'] == 'admin' and data['password'] == 'admin':
-        return Response(status= 200)
+        return jsonify({"msg": "Successful login"}), 200 # success
     else:
-        return Response(status= 404)
+        return jsonify({"msg": "Wrong username or password"}), 200 # Wrong username or password
 
 if __name__ == "__main__":
     app.run()
