@@ -29,7 +29,6 @@ const Login = () => {
         .then(response => {
           response.status === 200 && response.data['msg'] == 'Successful login' ? navigate('/robotics') : setPrompt(response.data['msg'])
         })
-        .then(console.log(prompt))
         .catch(e => {
           console.log(e)
         })

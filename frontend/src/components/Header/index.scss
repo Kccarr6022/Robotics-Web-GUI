@@ -1,0 +1,20 @@
+nav {
+  display: flex;
+  height: auto;
+  .header-logo {
+    width: 75px;
+    cursor: pointer;
+  }
+  .header-items li {
+    position: relative;
+    margin: 0 20px;
+    list-style: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+  a {
+    color: black;
+    font-size: 1.5vw;
+    text-decoration: none;
+  }
+}

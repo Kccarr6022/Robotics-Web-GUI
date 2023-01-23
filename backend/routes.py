@@ -16,6 +16,7 @@
 from flask import current_app,jsonify, make_response, flash, request, redirect, url_for, session, Response, copy_current_request_context
 from app import create_app
 from classes.RobotAdapter import Robot
+import bosdyn.client
 
 ####################################
 #
