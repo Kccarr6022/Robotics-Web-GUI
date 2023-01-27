@@ -1,6 +1,4 @@
-import spo
-
-class Spot:
+import 
 
 
 
