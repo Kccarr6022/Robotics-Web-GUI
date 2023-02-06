@@ -3,12 +3,9 @@
   height: 100vh;
   width: 100%;
   text-align: center;
-  background-color: #EAEBFE;
-  // background-image: linear-gradient(to bottom, #eaebfe, #e5e6fd, #dfe2fb, #d9ddfa, #d3d9f9);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  background-image: linear-gradient(to bottom, #f5f5fb, #f1f1fc, #edeefd, #e9eafe, #e5e7ff);
   background-size: cover;
+  font-family: sans-serif;
 
   .login-logo {
     justify-content: center;
@@ -17,35 +14,28 @@
     margin-top: 20vh;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: -4vh;
   }
   .login-title {
-    font-family: 'Poppins';
     font-weight: 500;
-    font-size: 3.5vw;
+    font-size: 3vw;
     color: #000000;
   }
 
-  .login-username {
-    margin: 5vh 0;
+  .login-details {
+    margin: 5vh auto;
     font-size: 1.5vw;
-    label {
-      padding-right: 4vw;
-      font-weight: 500;
-    }
-    input {
-      font-size: 1.5vw;
-    }
-  }
+    width: 30vw;
 
-  .login-password {
-    margin: 5vh 0;
-    font-size: 1.5vw;
     label {
+      text-align: left;
       padding-right: 4vw;
       font-weight: 500;
+      width: 3vw;
     }
     input {
+      position: relative;
+      float: right;
+      clear: both;
       font-size: 1.5vw;
     }
   }
@@ -74,13 +64,28 @@
     bottom: 0;
     background-color: #d3d9f9;
   }
-
   .login-prompt {
     position: absolute;
-    top: 20%;
-    left: 20%;
-    width:50%;
-    height: 40%;
-    background-color: blue;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto auto;
+    width: 50%;
+    height: 35%;
+    background-color: rgb(185, 185, 236);
+    border-radius: 10px;
+
+    h1 {
+      position: relative;
+      top: 50%;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 24px;
+      position: relative;
+      top: 55%;
+    }
   }
 }

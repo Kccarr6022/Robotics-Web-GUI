@@ -25,6 +25,7 @@ import bosdyn.client
 ####################################
 # Create an application instance
 app = create_app()
+spot = Robot()
 
 ####################################
 #
@@ -55,6 +56,26 @@ def get_spot_power():
 
     return {
         "power": spot_power
+    }, 200
+
+@app.route('/api/spot/move', methods=['POST'])
+def move():
+    direction = request.get_json()['direction']
+
+    if direction == 'W':
+        message = "forwards"
+    elif direction == 'D':
+        message = "right"
+    elif direction == "S":
+        message = "backwards"
+    elif direction == 'A':
+        message = "left"
+    else:
+        message = "Invalid direction"
+
+
+    return {
+        "direction": message
     }, 200
 
 

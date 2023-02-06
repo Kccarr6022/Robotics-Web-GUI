@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import FermiLabLogo from './images/FermiLabLogo.png'
 import './index.scss'
 
-import axios from 'axios'
-
 const Login = () => {
+  let FermiLabLogo = '/images/FermiLabLogo.png'
   const [prompt, setPrompt] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -27,7 +26,7 @@ const Login = () => {
           password: password,
         })
         .then(response => {
-          response.status === 200 && response.data['msg'] == 'Successful login' ? navigate('/robotics') : setPrompt(response.data['msg'])
+          response.status === 200 && response.data['msg'] == 'Successful login' ? navigate('/selection') : setPrompt(response.data['msg'])
         })
         .catch(e => {
           console.log(e)
@@ -41,11 +40,11 @@ const Login = () => {
     <div className='login-page'>
       <img src={FermiLabLogo} className='login-logo' />
       <h1 className='login-title'>Robotic Systems Login</h1>
-      <div className='login-username'>
+      <div className='login-details'>
         <label for='username'>Username:</label>
         <input id='username' value={username} onChange={handleUsernameChange} />
       </div>
-      <div className='login-password'>
+      <div className='login-details'>
         <label for='password'>Password:</label>
         <input id='password' value={password} onChange={handlePasswordChange} type='password' />
       </div>
