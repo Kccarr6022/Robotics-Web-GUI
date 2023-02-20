@@ -1,13 +1,28 @@
+###############################################
+# App
+# --------------------
+#
+# This file is referenced by routes.py
+#
+###############################################
 
 # Import the required packages
 from flask import Flask
+from flask_cors import CORS
 from dotenv import load_dotenv
-import bosdyn.client
+# import config
+import os
 
 load_dotenv()
 
-app = Flask(__name__)
+# init cross-origin
+cors = CORS()
 
-@app.route("/")
+def create_app():
+    # Initialize application
+    """Application-factory pattern"""
+    app = Flask(__name__)
 
-app.run(host="0.0.0.0", port="5000")
+    cors.init_app(app)
+
+    return app
