@@ -8,6 +8,7 @@ flask = "*"
 flask-cors = "*"
 "bosdyn.client" = "*"
 python-dotenv = "*"
+bosdyn-client = "*"
 
 [dev-packages]
 
