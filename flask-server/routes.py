@@ -43,10 +43,13 @@ app = create_app()
 def index():
     return render_template('base.html')
 
-@app.route('/login')
+@app.route('/gui')
 def login():
-    return render_template('login.html')
+    return render_template('roboticscontrol.html')
 
+@app.route('/video_feed')
+def video_feed():
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)

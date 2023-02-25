@@ -1,3 +1,56 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static'. filename='styles.css') }}" />
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{SPOT} GUI</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-left">
+        <ul>
+          <img src="{{ url_for('static', filename='images/nav-logo.png')}}" alt="logo" />
+        </ul>
+        <ul>
+          <a href="/selection.html">Robotics Selection</a>
+        </ul>
+        <ul>
+          <a href="/permissions.html">Permissions</a>
+        </ul>
+        <ul>
+          View
+        </ul>
+      </div>
+      <div class="nav-right">
+        <ul>
+          Logout
+        </ul>
+      </div>
+    </nav>
+
+    <div class="controls-container">
+      <div class="controls-left">
+        <h2>Current Permissions: {permissions}</h2>
+        <button>Request Operator Permissions</button>
+      </div>
+      <div class="controls-right">
+        <button>Record video</button>
+        <button>Screenshot</button>
+        <button>Listen to SPOT</button>
+        <button>Talk to SPOT</button>
+      </div>
+    </div>
+    <div class="video-border">
+      <h3 style="font-size: 18px">{camera} Camera Selection</h3>
+    </div>
+
+    <div class="video-container">
+      <div class="video-compass"></div>
+      <img src="{{ url_for('video_feed') }}" alt="spot live stream" />
+    </div>
+  </body>
+</html>
