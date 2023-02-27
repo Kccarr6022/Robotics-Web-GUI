@@ -1,0 +1,3 @@
+
+class SpotController:
+    pass

@@ -1,0 +1,4 @@
+
+
+class SpotVideoStreamer:
+    pass
