@@ -50,6 +50,6 @@ class SpotConnection:
 
     def is_there(self):
         # ping fermi-spot to see if it connected to the network
-        ping_result = ping('192.168.80.3', count=1)
+        ping_result = ping(self.host, count=1)
         # Option = 1 - SuccessOn.One, 2 - SuccessOn.Most, 3 - SuccessOn.All
         return True if ping_result.success(option=3) else False
