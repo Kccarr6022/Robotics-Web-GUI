@@ -4,6 +4,6 @@ class SpotVideoStreamer:
     spot_connection: SpotConnection
 
     def __init__(self, spot_connection: SpotConnection = None):
-        self.spot_connection = spot_connection
+        self.spot_connection: SpotConnection = spot_connection
 
     pass
