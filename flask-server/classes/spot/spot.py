@@ -11,11 +11,11 @@ class Spot:
     audio_streamer: SpotAudioStreamer = audio_streamer
 
 
-    def __init__(self, spot_connection: SpotConnection = None, spot_controller: SpotController = None, video_streamer:SpotVideoStreamer = None, audio_streamer: SpotAudioStreamer = None):
-        self.spot_connection: SpotConnection = spot_connection
-        self.spot_controller: SpotController = spot_controller
-        self.video_streamer: SpotVideoStreamer = video_streamer
-        self.audio_streamer: SpotAudioStreamer = audio_streamer
+    def __init__(self, host: str, username: str, password: str):
+        self.spot_connection: SpotConnection = SpotConnection(host, username, password)
+        self.spot_controller: SpotController = SpotController(spot_connection=self.spot_connection)
+        self.video_streamer: SpotVideoStreamer = SpotVideoStreamer(spot_connection=self.spot_connection)
+        self.audio_streamer: SpotAudioStreamer = SpotAudioStreamer(spot_connection=self.spot_connection)
 
 
     def power_on(self) -> bool:
@@ -28,19 +28,4 @@ class Spot:
             print("Refer to Spot Documentation")
         except bosdyn.client.power.CommandTimedOut:
             print("Refer to Spot Documentation")
-        return self.status
-
-
-    def status(self) -> bool:
-        if self.spot_connection.robot.is_powered_on():
-            print('Spot is online')
-            return True
-        else:
-            print('Spot is powered off')
-            return False
-
-    def authenticate(self, username: str, password: str):
-        if self.status(self.spot_connection.robot):
-            # ask Fermilab what the robot username and password are
-            # or make them enter in the username and password when they make the robotic systems selection
-            self.spot_connection.robot.authenticate(username, password)
+        return self.spot_connection.is_on()
