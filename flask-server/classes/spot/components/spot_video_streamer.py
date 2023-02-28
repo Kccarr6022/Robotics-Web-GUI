@@ -76,6 +76,7 @@ class SpotVideoStreamer:
         value_for_q_keystroke = 113
         value_for_esc_keystroke = 27
 
+        # REFACTOR INTO OPTIONS CLASS
         # Parse args
         args = sys.argv[1:]
         parser = argparse.ArgumentParser()
@@ -97,6 +98,7 @@ class SpotVideoStreamer:
         parser.add_argument("-o", "--port", type=int,
                         help="ephemeral port number of the server (1024 to 65535)")
         options = parser.parse_args(args)
+        # REFACTOR INTO OPTIONS CLASS
 
         self.spot_connection.robot.sync_with_directory()
         self.spot_connection.robot.time_sync.wait_for_sync()
@@ -130,8 +132,8 @@ class SpotVideoStreamer:
             except Exception as err:
                 _LOGGER.warning(err)
                 continue
-            for i in range(len(images)):
-                image, _ = self.image_to_opencv(images[i], options.auto_rotate)
+            for image in images:
+                image, _ = self.image_to_opencv(image, options.auto_rotate)
                 _, image = cv2.imencode('.jpg', image)
                 image = image.tobytes()
             yield b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n'
