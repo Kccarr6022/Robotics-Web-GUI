@@ -13,9 +13,9 @@
 # Imports
 #
 ####################################
-from flask import Blueprint, render_template, url_for
+from flask import Blueprint, render_template, url_for, Response
 from app import create_app
-from classes.robot_adapter import Robot
+from classes.spot import Spot
 import bosdyn.client
 
 ####################################
@@ -25,6 +25,7 @@ import bosdyn.client
 ####################################
 # Create an application instance
 app = create_app()
+spot = Spot(host='ip address here', username='username here', password='password')
 
 ####################################
 #
@@ -47,9 +48,10 @@ def index():
 def login():
     return render_template('roboticscontrol.html')
 
-@app.route('/video_feed')
+@app.route("/video_feed")
 def video_feed():
-    pass
+    """return the response generated along with the specific media type (mime type)"""
+    return Response(spot.video_streamer.generate(), mimetype = 'multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == "__main__":
     app.run(debug=True)

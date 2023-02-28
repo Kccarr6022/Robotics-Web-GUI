@@ -1,7 +1,7 @@
-from classes.spot.spot_connection import SpotConnection
-from classes.spot.spot_controller import SpotController
-from classes.spot.spot_video_streamer import SpotVideoStreamer
-from classes.spot.spot_audio_streamer import SpotAudioStreamer
+from spot.components import SpotConnection
+from spot.components import SpotController
+from spot.components import SpotVideoStreamer
+from spot.components import SpotAudioStreamer
 import bosdyn.client
 
 class Spot:

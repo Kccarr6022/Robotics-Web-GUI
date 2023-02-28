@@ -1,4 +1,4 @@
-from classes.spot.spot_connection import SpotConnection
+from spot_connection import SpotConnection
 import logging
 import argparse
 import sys
@@ -65,11 +65,11 @@ class SpotVideoStreamer:
 
         return img, extension
 
-    def reset_image_client(self, robot):
+    def reset_image_client(self):
         """Recreate the ImageClient from the robot object"""
-        del robot.service_clients_by_name['image']
-        del robot.channels_by_authority['api.spot.robot']
-        return robot.ensure_client('image')
+        del self.spot_connection.robot.service_clients_by_name['image']
+        del self.spot_connection.robot.channels_by_authority['api.spot.robot']
+        return self.spot_connection.robot.ensure_client('image')
 
     def generate(self):
         """Generate image from robot"""
@@ -98,14 +98,10 @@ class SpotVideoStreamer:
                         help="ephemeral port number of the server (1024 to 65535)")
         options = parser.parse_args(args)
 
-        # Create robot object with an image client.
-        sdk = bosdyn.client.create_standard_sdk('image_capture')
-        robot = sdk.create_robot(options.hostname)
-        bosdyn.client.util.authenticate(robot)
-        robot.sync_with_directory()
-        robot.time_sync.wait_for_sync()
+        self.spot_connection.robot.sync_with_directory()
+        self.spot_connection.robot.time_sync.wait_for_sync()
 
-        image_client = robot.ensure_client(options.image_service)
+        image_client = self.spot_connection.robot.ensure_client(options.image_service)
         requests = [
             build_image_request(source, quality_percent=options.jpeg_quality_percent)
             for source in options.image_sources
@@ -127,7 +123,7 @@ class SpotVideoStreamer:
                     # To attempt to handle bad comms and continue the live image stream,
                     # try recreating the image client after having an RPC timeout 5 times.
                     _LOGGER.info("Resetting image client after 5+ timeout errors.")
-                    image_client = self.reset_image_client(robot)
+                    image_client = self.reset_image_client(self.spot_connection.robot)
                     timeout_count_before_reset = 0
                 else:
                     timeout_count_before_reset += 1
@@ -140,5 +136,3 @@ class SpotVideoStreamer:
                 image = image.tobytes()
             yield b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + image + b'\r\n'
             keystroke = cv2.waitKey(options.capture_delay)
-
-    pass
